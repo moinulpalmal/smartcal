@@ -227,7 +227,7 @@ class BookingController extends Controller
         if($purchase_order_master != null){
             if($purchase_order_master->product_group_id == 5){
                 if($purchase_order_master->status != 'D'){
-
+                    $duplicate = PurchaseOrderMaster::checkDuplicateLpdPO($id);
                     $products = AStickerProductSetup::getActiveProductListForSelect($purchase_order_master->supplier_id);
                     $details = AStickerPODetail::getElasticPODetails($id);
                     $uniqueProducts = AStickerPODetail::getUniqueProducts($id);
@@ -237,7 +237,7 @@ class BookingController extends Controller
 
                     return view('a-sticker.booking.detail',
                         compact('purchaseOrder',
-                            'products', 'details', 'uniqueProducts', 'units'));
+                            'products', 'details', 'uniqueProducts', 'units','duplicate'));
 
                 }
                 return redirect()->route('asticker.booking.recent');
@@ -303,6 +303,22 @@ class BookingController extends Controller
         $purchase_order_master = PurchaseOrderMaster::find($request->id);
         if($purchase_order_master != null){
             $purchase_order_master->status = 'D';
+            $purchase_order_master->last_updated_by = Auth::id();
+
+            if($purchase_order_master->save()){
+                return true;
+            }
+            return null;
+        }
+
+        return null;
+    }
+
+    public function returnActive(Request $request){
+        $purchase_order_master = PurchaseOrderMaster::find($request->id);
+        if($purchase_order_master != null){
+            $purchase_order_master->delivery_complete_date = null;
+            $purchase_order_master->status = 'A';
             $purchase_order_master->last_updated_by = Auth::id();
 
             if($purchase_order_master->save()){
