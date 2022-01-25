@@ -64,7 +64,7 @@
                                     </a>
                                     @if($purchaseOrder->status == 'A')
                                         @if(Auth::user()->hasTaskPermission('updatecbmaster', Auth::user()->id))
-                                            <a title="Edit Booking Master Update" class ="myIcon icon-warning icon-ef-3 icon-ef-3b icon-color" href="{{route('cartoon.booking.edit', ['id' => $purchaseOrder->id])}}" {{--data-toggle="modal" data-target="#POUpdateModal" --}}data-options="splash-2 splash-ef-12">
+                                            <a title="Edit Booking Master Update" class ="myIcon icon-warning icon-ef-3 icon-ef-3b icon-color" href="{{route('asticker.booking.edit', ['id' => $purchaseOrder->id])}}" {{--data-toggle="modal" data-target="#POUpdateModal" --}}data-options="splash-2 splash-ef-12">
                                                 <i class="fa fa-edit"></i>
                                             </a>
                                         @endif
@@ -81,7 +81,7 @@
                                             <a title="Return Active Booking" class="ReturnActiveOrder myIcon icon-success icon-ef-3 icon-ef-3b icon-color" data-id = "{{ $purchaseOrder->id }}"><i class="fa fa-check"></i></a>
                                         @endif
                                     @endif
-                                    <a title="PDF View" class ="myIcon icon-danger icon-ef-3 icon-ef-3b icon-color" {{--target="_blank"--}} href="{{route('cartoon.booking.detail.pdf', ['id' => $purchaseOrder->id])}}">
+                                    <a title="PDF View" class ="myIcon icon-danger icon-ef-3 icon-ef-3b icon-color" {{--target="_blank"--}} href="{{route('asticker.booking.detail.pdf', ['id' => $purchaseOrder->id])}}">
                                         <i class="fa fa-file-pdf-o"></i>
                                     </a>
                                 @endif
