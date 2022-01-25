@@ -62,21 +62,26 @@
                                     <a title="Refresh" class ="myIcon icon-info icon-ef-3 icon-ef-3b icon-color" onclick="refresh()">
                                         <i class="fa fa-refresh"></i>
                                     </a>
-                                    @if(Auth::user()->hasTaskPermission('updatepmaster', Auth::user()->id))
-                                        <a title="Edit Booking Master Update" class ="myIcon icon-warning icon-ef-3 icon-ef-3b icon-color" href="{{route('poly.booking.edit', ['id' => $purchaseOrder->id])}}" {{--data-toggle="modal" data-target="#POUpdateModal" --}}data-options="splash-2 splash-ef-12">
-                                            <i class="fa fa-edit"></i>
-                                        </a>
-                                    @endif
-                                    @if(Auth::user()->hasTaskPermission('revisep', Auth::user()->id))
-                                        <a title="Revise Booking" class="ReviseOrder myIcon icon-success icon-ef-3 icon-ef-3b icon-color" data-id = "{{ $purchaseOrder->id }}"><i class="fa fa-recycle"></i></a>
-                                        <a title="Urgent Booking" class="UrgentOrder myIcon icon-warning icon-ef-3 icon-ef-3b icon-color" data-id = "{{ $purchaseOrder->id }}"><i class="fa fa-rocket"></i></a>
+                                    @if($purchaseOrder->status == 'A')
+                                        @if(Auth::user()->hasTaskPermission('updatecbmaster', Auth::user()->id))
+                                            <a title="Edit Booking Master Update" class ="myIcon icon-warning icon-ef-3 icon-ef-3b icon-color" href="{{route('cartoon.booking.edit', ['id' => $purchaseOrder->id])}}" {{--data-toggle="modal" data-target="#POUpdateModal" --}}data-options="splash-2 splash-ef-12">
+                                                <i class="fa fa-edit"></i>
+                                            </a>
+                                        @endif
+                                        @if(Auth::user()->hasTaskPermission('revisecb', Auth::user()->id))
+                                            <a title="Revise Booking" class="ReviseOrder myIcon icon-success icon-ef-3 icon-ef-3b icon-color" data-id = "{{ $purchaseOrder->id }}"><i class="fa fa-recycle"></i></a>
+                                            <a title="Urgent Booking" class="UrgentOrder myIcon icon-warning icon-ef-3 icon-ef-3b icon-color" data-id = "{{ $purchaseOrder->id }}"><i class="fa fa-rocket"></i></a>
 
+                                        @endif
+                                        @if(Auth::user()->hasTaskPermission('deletecb', Auth::user()->id))
+                                            <a title="Delete Booking" class="DeleteOrder myIcon icon-danger icon-ef-3 icon-ef-3b icon-color" data-id = "{{ $purchaseOrder->id }}"><i class="fa fa-trash"></i></a>
+                                        @endif
+                                    @else
+                                        @if(Auth::user()->hasTaskPermission('deletecb', Auth::user()->id))
+                                            <a title="Return Active Booking" class="ReturnActiveOrder myIcon icon-success icon-ef-3 icon-ef-3b icon-color" data-id = "{{ $purchaseOrder->id }}"><i class="fa fa-check"></i></a>
+                                        @endif
                                     @endif
-                                    @if(Auth::user()->hasTaskPermission('deletep', Auth::user()->id))
-                                        <a title="Delete Booking" class="DeleteOrder myIcon icon-danger icon-ef-3 icon-ef-3b icon-color" data-id = "{{ $purchaseOrder->id }}"><i class="fa fa-trash"></i></a>
-                                    @endif
-
-                                    <a title="PDF View" class ="myIcon icon-danger icon-ef-3 icon-ef-3b icon-color" {{--target="_blank"--}} href="{{route('poly.booking.detail.pdf', ['id' => $purchaseOrder->id])}}">
+                                    <a title="PDF View" class ="myIcon icon-danger icon-ef-3 icon-ef-3b icon-color" {{--target="_blank"--}} href="{{route('cartoon.booking.detail.pdf', ['id' => $purchaseOrder->id])}}">
                                         <i class="fa fa-file-pdf-o"></i>
                                     </a>
                                 @endif
