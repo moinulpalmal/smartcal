@@ -56,29 +56,34 @@
                             <div class="mt-10">
                                 @if($duplicate == true)
                                     @if(Auth::user()->hasTaskPermission('resetpo', Auth::user()->id))
-                                        <a title="Reset LPD PO" class="ResetPO myIcon icon-success icon-ef-3 icon-ef-3b icon-color" data-id = "{{ $purchaseOrder->id }}"><i class="fa fa-recycle"></i></a>
+                                    <a title="Reset LPD PO" class="ResetPO myIcon icon-success icon-ef-3 icon-ef-3b icon-color" data-id = "{{ $purchaseOrder->id }}"><i class="fa fa-recycle"></i></a>
                                     @endif
                                 @else
-                                <a title="Refresh" class ="myIcon icon-info icon-ef-3 icon-ef-3b icon-color" onclick="refresh()">
-                                    <i class="fa fa-refresh"></i>
-                                </a>
-                                @if(Auth::user()->hasTaskPermission('updategimaster', Auth::user()->id))
-                                    <a title="Edit Booking Master Update" class ="myIcon icon-warning icon-ef-3 icon-ef-3b icon-color" href="{{route('generalitem.booking.edit', ['id' => $purchaseOrder->id])}}" {{--data-toggle="modal" data-target="#POUpdateModal" --}}data-options="splash-2 splash-ef-12">
-                                        <i class="fa fa-edit"></i>
+                                    <a title="Refresh" class ="myIcon icon-info icon-ef-3 icon-ef-3b icon-color" onclick="refresh()">
+                                        <i class="fa fa-refresh"></i>
                                     </a>
-                                @endif
-                                @if(Auth::user()->hasTaskPermission('revisegi', Auth::user()->id))
-                                    <a title="Revise Booking" class="ReviseOrder myIcon icon-success icon-ef-3 icon-ef-3b icon-color" data-id = "{{ $purchaseOrder->id }}"><i class="fa fa-recycle"></i></a>
-                                    <a title="Urgent Booking" class="UrgentOrder myIcon icon-warning icon-ef-3 icon-ef-3b icon-color" data-id = "{{ $purchaseOrder->id }}"><i class="fa fa-rocket"></i></a>
+                                    @if($purchaseOrder->status == 'A')
+                                        @if(Auth::user()->hasTaskPermission('updatecbmaster', Auth::user()->id))
+                                            <a title="Edit Booking Master Update" class ="myIcon icon-warning icon-ef-3 icon-ef-3b icon-color" href="{{route('cartoon.booking.edit', ['id' => $purchaseOrder->id])}}" {{--data-toggle="modal" data-target="#POUpdateModal" --}}data-options="splash-2 splash-ef-12">
+                                                <i class="fa fa-edit"></i>
+                                            </a>
+                                        @endif
+                                        @if(Auth::user()->hasTaskPermission('revisecb', Auth::user()->id))
+                                            <a title="Revise Booking" class="ReviseOrder myIcon icon-success icon-ef-3 icon-ef-3b icon-color" data-id = "{{ $purchaseOrder->id }}"><i class="fa fa-recycle"></i></a>
+                                            <a title="Urgent Booking" class="UrgentOrder myIcon icon-warning icon-ef-3 icon-ef-3b icon-color" data-id = "{{ $purchaseOrder->id }}"><i class="fa fa-rocket"></i></a>
 
-                                @endif
-                                @if(Auth::user()->hasTaskPermission('deletegi', Auth::user()->id))
-                                    <a title="Delete Booking" class="DeleteOrder myIcon icon-danger icon-ef-3 icon-ef-3b icon-color" data-id = "{{ $purchaseOrder->id }}"><i class="fa fa-trash"></i></a>
-                                @endif
-
-                                <a title="PDF View" class ="myIcon icon-danger icon-ef-3 icon-ef-3b icon-color" {{--target="_blank"--}} href="{{route('generalitem.booking.detail.pdf', ['id' => $purchaseOrder->id])}}">
-                                    <i class="fa fa-file-pdf-o"></i>
-                                </a>
+                                        @endif
+                                        @if(Auth::user()->hasTaskPermission('deletecb', Auth::user()->id))
+                                            <a title="Delete Booking" class="DeleteOrder myIcon icon-danger icon-ef-3 icon-ef-3b icon-color" data-id = "{{ $purchaseOrder->id }}"><i class="fa fa-trash"></i></a>
+                                        @endif
+                                    @else
+                                        @if(Auth::user()->hasTaskPermission('deletecb', Auth::user()->id))
+                                            <a title="Return Active Booking" class="ReturnActiveOrder myIcon icon-success icon-ef-3 icon-ef-3b icon-color" data-id = "{{ $purchaseOrder->id }}"><i class="fa fa-check"></i></a>
+                                        @endif
+                                    @endif
+                                    <a title="PDF View" class ="myIcon icon-danger icon-ef-3 icon-ef-3b icon-color" {{--target="_blank"--}} href="{{route('cartoon.booking.detail.pdf', ['id' => $purchaseOrder->id])}}">
+                                        <i class="fa fa-file-pdf-o"></i>
+                                    </a>
                                 @endif
                             </div>
                         </div>
@@ -652,6 +657,53 @@
             swal({
                 title: 'Are you sure?',
                 text: 'This booking will be removed permanently!',
+                icon: 'warning',
+                buttons: ["Cancel", "Yes!"],
+            }).then(function(value) {
+                if (value) {
+                    //window.location.href = url;
+                    //console.log(id);
+                    $.ajax({
+                        method:'DELETE',
+                        url: url,
+                        data:{id: id, _token: '{{csrf_token()}}'},
+                        success:function(data){
+                            if(data){
+                                //console.log(data);
+                                swal({
+                                    title: "Operation Successful!",
+                                    icon: "success",
+                                    button: "Ok!",
+                                }).then(function (value) {
+                                    if(value){
+                                        //console.log(value);
+                                        window.location.href = window.location.href.replace(/#.*$/, '');
+                                    }
+                                });
+                            }
+                        },
+                        error:function(error){
+                            console.log(error);
+                            swal({
+                                title: "Operation Unsuccessful!",
+                                text: "Somthing wrong happend please check!",
+                                icon: "error",
+                                button: "Ok!",
+                                className: "myClass",
+                            });
+                        }
+                    })
+                }
+            });
+        });
+
+        $('#purchase-order').on('click',".ReturnActiveOrder", function(){
+            var button = $(this);
+            var id = button.attr("data-id");
+            var url = '{{ route('generalitem.booking.return-active') }}';
+            swal({
+                title: 'Are you sure?',
+                text: 'This booking will be reactivated permanently!',
                 icon: 'warning',
                 buttons: ["Cancel", "Yes!"],
             }).then(function(value) {

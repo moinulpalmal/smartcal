@@ -199,6 +199,7 @@ Auth::routes();
         Route::delete('booking/delete','BookingController@delete')->name('booking.delete');
         Route::delete('booking/urgent','BookingController@makeUrgent')->name('booking.urgent');
         Route::delete('booking/revise','BookingController@makeRevise')->name('booking.revise');
+        Route::delete('booking/return-active','BookingController@returnActive')->name('booking.return-active');
         //booking
 
         //product setup
@@ -244,6 +245,7 @@ Auth::routes();
         Route::delete('booking/delete','BookingController@delete')->name('booking.delete');
         Route::delete('booking/urgent','BookingController@makeUrgent')->name('booking.urgent');
         Route::delete('booking/revise','BookingController@makeRevise')->name('booking.revise');
+        Route::delete('booking/return-active','BookingController@returnActive')->name('booking.return-active');
         //booking
 
         //product setup
@@ -288,6 +290,7 @@ Auth::routes();
         Route::delete('booking/delete','BookingController@delete')->name('booking.delete');
         Route::delete('booking/urgent','BookingController@makeUrgent')->name('booking.urgent');
         Route::delete('booking/revise','BookingController@makeRevise')->name('booking.revise');
+        Route::delete('booking/return-active','BookingController@returnActive')->name('booking.return-active');
         //booking
 
         //product setup
@@ -332,6 +335,7 @@ Auth::routes();
         Route::delete('booking/delete','BookingController@delete')->name('booking.delete');
         Route::delete('booking/urgent','BookingController@makeUrgent')->name('booking.urgent');
         Route::delete('booking/revise','BookingController@makeRevise')->name('booking.revise');
+        Route::delete('booking/return-active','BookingController@returnActive')->name('booking.return-active');
         //booking
 
         //product setup
@@ -376,6 +380,7 @@ Auth::routes();
         Route::delete('booking/delete','BookingController@delete')->name('booking.delete');
         Route::delete('booking/urgent','BookingController@makeUrgent')->name('booking.urgent');
         Route::delete('booking/revise','BookingController@makeRevise')->name('booking.revise');
+        Route::delete('booking/return-active','BookingController@returnActive')->name('booking.return-active');
         //booking
 
         //product setup
@@ -424,6 +429,7 @@ Auth::routes();
         Route::delete('booking/delete','BookingController@delete')->name('booking.delete');
         Route::delete('booking/urgent','BookingController@makeUrgent')->name('booking.urgent');
         Route::delete('booking/revise','BookingController@makeRevise')->name('booking.revise');
+        Route::delete('booking/return-active','BookingController@returnActive')->name('booking.return-active');
         //booking
 
         //product setup
@@ -472,6 +478,7 @@ Auth::routes();
         Route::delete('booking/delete','BookingController@delete')->name('booking.delete');
         Route::delete('booking/urgent','BookingController@makeUrgent')->name('booking.urgent');
         Route::delete('booking/revise','BookingController@makeRevise')->name('booking.revise');
+        Route::delete('booking/return-active','BookingController@returnActive')->name('booking.return-active');
         //booking
 
         //product setup
@@ -519,6 +526,7 @@ Auth::routes();
         Route::delete('booking/delete','BookingController@delete')->name('booking.delete');
         Route::delete('booking/urgent','BookingController@makeUrgent')->name('booking.urgent');
         Route::delete('booking/revise','BookingController@makeRevise')->name('booking.revise');
+        Route::delete('booking/return-active','BookingController@returnActive')->name('booking.return-active');
         //booking
 
         //product setup
@@ -567,6 +575,7 @@ Auth::routes();
         Route::delete('booking/delete','BookingController@delete')->name('booking.delete');
         Route::delete('booking/urgent','BookingController@makeUrgent')->name('booking.urgent');
         Route::delete('booking/revise','BookingController@makeRevise')->name('booking.revise');
+        Route::delete('booking/return-active','BookingController@returnActive')->name('booking.return-active');
         //booking
 
         //product setup
@@ -615,6 +624,7 @@ Auth::routes();
         Route::delete('booking/delete','BookingController@delete')->name('booking.delete');
         Route::delete('booking/urgent','BookingController@makeUrgent')->name('booking.urgent');
         Route::delete('booking/revise','BookingController@makeRevise')->name('booking.revise');
+        Route::delete('booking/return-active','BookingController@returnActive')->name('booking.return-active');
         //booking
 
         //product setup
@@ -662,6 +672,7 @@ Auth::routes();
         Route::delete('booking/delete','BookingController@delete')->name('booking.delete');
         Route::delete('booking/urgent','BookingController@makeUrgent')->name('booking.urgent');
         Route::delete('booking/revise','BookingController@makeRevise')->name('booking.revise');
+        Route::delete('booking/return-active','BookingController@returnActive')->name('booking.return-active');
         //booking
 
         //product setup
