@@ -338,6 +338,22 @@ class BookingController extends Controller
         return null;
     }
 
+    public function returnActive(Request $request){
+        $purchase_order_master = PurchaseOrderMaster::find($request->id);
+        if($purchase_order_master != null){
+            $purchase_order_master->delivery_complete_date = null;
+            $purchase_order_master->status = 'A';
+            $purchase_order_master->last_updated_by = Auth::id();
+
+            if($purchase_order_master->save()){
+                return true;
+            }
+            return null;
+        }
+
+        return null;
+    }
+
     public function saveDetail(Request $request){
 
         $id = $request->get('item_id');

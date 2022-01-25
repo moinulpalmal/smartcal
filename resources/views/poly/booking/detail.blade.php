@@ -945,6 +945,53 @@
             });
         });
 
+        $('#purchase-order').on('click',".ReturnActiveOrder", function(){
+            var button = $(this);
+            var id = button.attr("data-id");
+            var url = '{{ route('poly.booking.return-active') }}';
+            swal({
+                title: 'Are you sure?',
+                text: 'This booking will be reactivated permanently!',
+                icon: 'warning',
+                buttons: ["Cancel", "Yes!"],
+            }).then(function(value) {
+                if (value) {
+                    //window.location.href = url;
+                    //console.log(id);
+                    $.ajax({
+                        method:'DELETE',
+                        url: url,
+                        data:{id: id, _token: '{{csrf_token()}}'},
+                        success:function(data){
+                            if(data){
+                                //console.log(data);
+                                swal({
+                                    title: "Operation Successful!",
+                                    icon: "success",
+                                    button: "Ok!",
+                                }).then(function (value) {
+                                    if(value){
+                                        //console.log(value);
+                                        window.location.href = window.location.href.replace(/#.*$/, '');
+                                    }
+                                });
+                            }
+                        },
+                        error:function(error){
+                            console.log(error);
+                            swal({
+                                title: "Operation Unsuccessful!",
+                                text: "Somthing wrong happend please check!",
+                                icon: "error",
+                                button: "Ok!",
+                                className: "myClass",
+                            });
+                        }
+                    })
+                }
+            });
+        });
+
         $(function(){
             $.ajaxSetup({
                 headers: { 'X-CSRF-TOKEN' : '{{ csrf_token() }}' }
