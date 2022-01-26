@@ -56,7 +56,7 @@
                             <div class="mt-10">
                                 @if($duplicate == true)
                                     @if(Auth::user()->hasTaskPermission('resetpo', Auth::user()->id))
-                                    <a title="Reset LPD PO" class="ResetPO myIcon icon-success icon-ef-3 icon-ef-3b icon-color" data-id = "{{ $purchaseOrder->id }}"><i class="fa fa-recycle"></i></a>
+                                        <a title="Reset LPD PO" class="ResetPO myIcon icon-success icon-ef-3 icon-ef-3b icon-color" data-id = "{{ $purchaseOrder->id }}"><i class="fa fa-recycle"></i></a>
                                     @endif
                                 @else
                                     <a title="Refresh" class ="myIcon icon-info icon-ef-3 icon-ef-3b icon-color" onclick="refresh()">
