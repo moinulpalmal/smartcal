@@ -47,24 +47,18 @@ class PurchaseOrderMaster extends Model
         //$currentMonth = Carbon::now()->month;
         //$strCurrentMonth = (string)$currentMonth;
 
-        $lastLpd = DB::table('purchase_order_masters')
-            ->select('id', 'lpd_po_no')
-            ->where('status', '!=', 'D')
-            ->get()
-            ->last();
+        $lastLpd = DB::table('view_last_lpd_po')
+            ->select( 'last_lpd_po_no')
+            ->get();
 
         if($lastLpd == null)
         {
             $value = 1;
-
             return $value;
         }
         else{
-            $lastLpdPO = $lastLpd->lpd_po_no;
-            $lastNumber = (int)$lastLpdPO;
-          //  $lastNumber = var_dump((int)$lastLpdPO);
-           // $NewString = sprintf( "%06d", $lastNumber+1);
-            return $lastNumber+1;
+            $lastLpdPO = $lastLpd[0]->last_lpd_po_no;
+            return $lastLpdPO;
         }
     }
 
