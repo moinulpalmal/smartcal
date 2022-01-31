@@ -61,7 +61,8 @@ class PurchaseOrderMaster extends Model
         }
         else{
             $lastLpdPO = $lastLpd->lpd_po_no;
-            $lastNumber = (integer)$lastLpdPO;
+            $lastNumber = (int)$lastLpdPO;
+          //  $lastNumber = var_dump((int)$lastLpdPO);
            // $NewString = sprintf( "%06d", $lastNumber+1);
             return $lastNumber+1;
         }
