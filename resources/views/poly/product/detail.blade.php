@@ -118,7 +118,7 @@
                                                                             <label for="CurrencyID" class="control-label">Approved Currency</label>
                                                                             <select class="form-control select2" name="currency"  id="CurrencyID" style="width: 100%;" required>
                                                                                 <option value="" selected="selected">- - - Select - - -</option>
-                                                                                <option value="?" >BDT</option>
+                                                                                <option value="৳" >BDT</option>
                                                                                 <option value="$" >USD</option>
                                                                             </select>
                                                                         </div>
