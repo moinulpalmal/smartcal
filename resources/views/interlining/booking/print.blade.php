@@ -179,7 +179,7 @@
                                                     <td colspan="2" style="font-size: x-small !important;" class="text-right">
                                                         <P>
                                                             <b>
-                                                                @if(!empty($uniqueProducts) {{$uniqueProducts[0]->currency}} @endif{!! number_format($total_price, 3, '.', ',') !!}
+                                                                @if(!empty($details) {{$details[0]->currency}} @endif{!! number_format($total_price, 3, '.', ',') !!}
                                                             </b>
                                                         </P>
                                                     </td>
