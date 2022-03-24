@@ -158,12 +158,12 @@ Arrow Sticker
                                                                 {{ \Carbon\Carbon::parse($item->tna_start_date)->format('d/m/Y') }}
                                                             @endif
                                                         </td>
-                                                        <td class="text-center">
+                                                        <td class="text-center"  style=" font-size: x-small !important;">
                                                             @if($item->tna_end_date != null)
                                                                 {{ \Carbon\Carbon::parse($item->tna_end_date)->format('d/m/Y') }}
                                                             @endif
                                                         </td>
-                                                        <td class="text-center">
+                                                        <td class="text-center"  style=" font-size: x-small !important;">
                                                             @if($item->delivery_complete_date != null)
                                                                 {{ \Carbon\Carbon::parse($item->delivery_complete_date)->format('d/m/Y') }}
                                                             @endif
