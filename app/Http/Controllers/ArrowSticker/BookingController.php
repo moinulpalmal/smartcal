@@ -127,7 +127,14 @@ class BookingController extends Controller
                 $purchaseOrders = $purchaseOrders->whereIn('status',  $request->get('status'));
             }
 
-            //return $purchaseOrders;
+           // return $purchaseOrders;
+
+           /* $data = DB::table('a_sticker_total_value')
+                ->select('total_value')
+                ->where('purchase_order_master_id', 21)
+                ->get();
+
+            return $data;*/
 
             return view('a-sticker.booking.booking-report', compact('purchaseOrders', 'request'));
         }

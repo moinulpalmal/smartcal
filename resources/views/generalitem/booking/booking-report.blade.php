@@ -157,12 +157,12 @@
                                                                 {{ \Carbon\Carbon::parse($item->tna_start_date)->format('d/m/Y') }}
                                                             @endif
                                                         </td>
-                                                        <td class="text-center">
+                                                        <td class="text-center" style=" font-size: x-small !important;">
                                                             @if($item->tna_end_date != null)
                                                                 {{ \Carbon\Carbon::parse($item->tna_end_date)->format('d/m/Y') }}
                                                             @endif
                                                         </td>
-                                                        <td class="text-center">
+                                                        <td class="text-center" style=" font-size: x-small !important;">
                                                             @if($item->delivery_complete_date != null)
                                                                 {{ \Carbon\Carbon::parse($item->delivery_complete_date)->format('d/m/Y') }}
                                                             @endif
@@ -180,7 +180,10 @@
                                                                 <span class="label label-info">Delivery Complete</span>
                                                             @endif
                                                         </td>
-                                                        <td class="text-center">
+                                                        <td class="text-right">
+                                                            <strong style="float: left;">{{(App\Model\GeneralPODetail::returnCurrency($item->id))}}</strong>{!! number_format((App\Model\GeneralPODetail::getSumTotalPrice($item->id)), 3, '.', ',') !!}
+                                                        </td>
+                                                        <td class="text-right">
 
                                                         </td>
                                                 @endforeach

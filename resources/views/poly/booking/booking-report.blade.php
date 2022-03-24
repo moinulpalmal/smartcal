@@ -138,6 +138,7 @@ Poly
                                                         <th class="text-uppercase text-center" style=" font-size: small !important;">TNA End Date</th>
                                                         <th class="text-uppercase text-center" style=" font-size: small !important;">Delivery Complete Date</th>
                                                         <th class="text-uppercase text-center" style=" font-size: small !important;">Status</th>
+                                                        <th class="text-uppercase text-center" style=" font-size: small !important;">Total Value</th>
                                                         <th class="text-uppercase text-center" style=" font-size: small !important;">Remarks</th></tr>
                                                 </thead>
 
@@ -157,12 +158,12 @@ Poly
                                                                 {{ \Carbon\Carbon::parse($item->tna_start_date)->format('d/m/Y') }}
                                                             @endif
                                                         </td>
-                                                        <td class="text-center">
+                                                        <td class="text-center" style=" font-size: x-small !important;">
                                                             @if($item->tna_end_date != null)
                                                                 {{ \Carbon\Carbon::parse($item->tna_end_date)->format('d/m/Y') }}
                                                             @endif
                                                         </td>
-                                                        <td class="text-center">
+                                                        <td class="text-center" style=" font-size: x-small !important;">
                                                             @if($item->delivery_complete_date != null)
                                                                 {{ \Carbon\Carbon::parse($item->delivery_complete_date)->format('d/m/Y') }}
                                                             @endif
@@ -180,7 +181,10 @@ Poly
                                                                 <span class="label label-info">Delivery Complete</span>
                                                             @endif
                                                         </td>
-                                                        <td class="text-center">
+                                                        <td class="text-right">
+                                                            <strong style="float: left;">$</strong>{!! number_format((App\Model\PolyPODetail::getSumTotalPrice($item->id)), 3, '.', ',') !!}
+                                                        </td>
+                                                        <td class="text-right">
 
                                                         </td>
                                                 @endforeach

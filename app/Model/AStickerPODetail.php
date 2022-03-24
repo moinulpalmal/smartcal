@@ -14,6 +14,19 @@ class AStickerPODetail extends Model
             ->get();
     }
 
+    public static function returnTotalSum($masterId){
+        $data = DB::table('a_sticker_total_value')
+            ->select('total_value')
+            ->where('purchase_order_master_id', $masterId)
+            ->get();
+
+        if($data->count() > 0){
+            return $data[0]->total_value;
+        }
+
+        return 0;
+    }
+
     public static function getUniqueProducts($masterId){
 
         return DB::table('a_sticker_p_o_details')
