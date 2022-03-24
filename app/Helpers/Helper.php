@@ -39,6 +39,6 @@ class Helper{
     }
 
     public static function GetArrowStickerTotalSum($masterId){
-       return AStickerPODetail::returnTotalSum($masterId);
+       return AStickerPODetail::getSumTotalPrice($masterId);
     }
 }
