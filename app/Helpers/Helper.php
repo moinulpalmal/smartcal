@@ -1,5 +1,6 @@
 <?php
 namespace App\Helpers;
+use App\Model\AStickerPODetail;
 use App\Model\ThreadPODetail;
 use Illuminate\Support\Facades\DB;
 
@@ -35,5 +36,9 @@ class Helper{
 
     public static function GetThreadPOTotalPrice($masterID, $productID){
         return ThreadPODetail::getUniqueProductTotalPrice($masterID, $productID);
+    }
+
+    public static function GetArrowStickerTotalSum($masterId){
+       return AStickerPODetail::returnTotalSum($masterId);
     }
 }
