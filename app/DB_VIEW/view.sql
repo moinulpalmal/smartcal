@@ -16,3 +16,10 @@ SELECT purchase_order_master_id, currency, SUM(total_price) AS total_value
 FROM general_p_o_details
 WHERE STATUS <> 'D'
 GROUP BY purchase_order_master_id, currency
+
+DROP VIEW interlining_total_value
+CREATE VIEW interlining_total_value AS
+SELECT purchase_order_master_id, currency, SUM(total_price) AS total_value
+FROM interlining_p_o_details
+WHERE STATUS <> 'D'
+GROUP BY purchase_order_master_id, currency

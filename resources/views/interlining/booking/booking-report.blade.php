@@ -138,6 +138,7 @@ Interlining
                                                         <th class="text-uppercase text-center" style=" font-size: small !important;">TNA End Date</th>
                                                         <th class="text-uppercase text-center" style=" font-size: small !important;">Delivery Complete Date</th>
                                                         <th class="text-uppercase text-center" style=" font-size: small !important;">Status</th>
+                                                        <th class="text-uppercase text-center" style=" font-size: small !important;">Total Value</th>
                                                         <th class="text-uppercase text-center" style=" font-size: small !important;">Remarks</th></tr>
                                                 </thead>
 
@@ -180,7 +181,10 @@ Interlining
                                                                 <span class="label label-info">Delivery Complete</span>
                                                             @endif
                                                         </td>
-                                                        <td class="text-center">
+                                                        <td class="text-right">
+                                                            <strong style="float: left;">{{(App\Model\InterliningPODetail::returnCurrency($item->id))}}</strong>{!! number_format((App\Model\InterliningPODetail::getSumTotalPrice($item->id)), 3, '.', ',') !!}
+                                                        </td>
+                                                        <td class="text-right">
 
                                                         </td>
                                                 @endforeach
