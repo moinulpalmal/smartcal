@@ -180,7 +180,10 @@
                                                                 <span class="label label-info">Delivery Complete</span>
                                                             @endif
                                                         </td>
-                                                        <td class="text-center">
+                                                        <td class="text-right">
+                                                            <strong style="float: left;">{{(App\Model\GeneralPODetail::returnCurrency($item->id))}}</strong>{!! number_format((App\Model\GeneralPODetail::getSumTotalPrice($item->id)), 3, '.', ',') !!}
+                                                        </td>
+                                                        <td class="text-right">
 
                                                         </td>
                                                 @endforeach

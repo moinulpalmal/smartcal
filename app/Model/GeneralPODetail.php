@@ -62,4 +62,17 @@ class GeneralPODetail extends Model
         return $sum_total_price;
 
     }
+
+    public static function returnCurrency($masterID){
+        $poDetails = DB::table('general_total_value')
+            ->select('general_total_value.currency')
+            ->where('purchase_order_master_id', $masterID)
+            ->get();
+
+        if($poDetails->count() > 0){
+            return $poDetails[0]->currency;
+        }
+
+        return ' ';
+    }
 }
