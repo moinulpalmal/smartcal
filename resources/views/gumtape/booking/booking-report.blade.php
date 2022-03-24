@@ -138,113 +138,129 @@ Gum Tape
                                                         <th class="text-uppercase text-center" style=" font-size: small !important;">TNA End Date</th>
                                                         <th class="text-uppercase text-center" style=" font-size: small !important;">Delivery Complete Date</th>
                                                         <th class="text-uppercase text-center" style=" font-size: small !important;">Status</th>
+                                                        <th class="text-uppercase text-center" style=" font-size: small !important;">Total Value (BDT)</th>
+                                                        <th class="text-uppercase text-center" style=" font-size: small !important;">Total Value (USD)</th>
                                                         <th class="text-uppercase text-center" style=" font-size: small !important;">Remarks</th></tr>
                                                 </thead>
 
                                                 <tbody>
                                                 @php($i = 1)
                                                 @foreach($purchaseOrders as $item)
-                                                    <tr>
-                                                        <td class="text-center" style=" font-size: x-small !important;">{{$i++}}</td>
-                                                        <td class="text-center" style=" font-size: x-small !important;">{{$item->lpd_po_no}}</td>
-                                                        <td class="text-center" style=" font-size: x-small !important;"> {{\Carbon\Carbon::parse($item->lpd_po_date)->format('d/m/Y')}}</td>
-                                                        <td class="text-left" style=" font-size: x-small !important;">{{(App\Helpers\Helper::IDwiseData('suppliers','id',$item->supplier_id))->name}}</td>
-                                                        <td class="text-left" style=" font-size: x-small !important;">{{(App\Helpers\Helper::IDwiseData('buyers','id',$item->buyer_id))->name}}</td>
-                                                        <td class="text-left" style=" font-size: x-small !important;">{{(App\Helpers\Helper::IDwiseData('delivery_locations','id',$item->delivery_location_id))->name}}</td>
-                                                        <td class="text-center" style=" font-size: x-small !important;"> {{\Carbon\Carbon::parse($item->delivery_date)->format('d/m/Y')}}</td>
-                                                        <td class="text-center" style=" font-size: x-small !important;">
-                                                            @if($item->tna_start_date != null)
-                                                                {{ \Carbon\Carbon::parse($item->tna_start_date)->format('d/m/Y') }}
+                                                <tr>
+                                                    <td class="text-center" style=" font-size: x-small !important;">{{$i++}}</td>
+                                                    <td class="text-center" style=" font-size: x-small !important;">{{$item->lpd_po_no}}</td>
+                                                    <td class="text-center" style=" font-size: x-small !important;"> {{\Carbon\Carbon::parse($item->lpd_po_date)->format('d/m/Y')}}</td>
+                                                    <td class="text-left" style=" font-size: x-small !important;">{{(App\Helpers\Helper::IDwiseData('suppliers','id',$item->supplier_id))->name}}</td>
+                                                    <td class="text-left" style=" font-size: x-small !important;">{{(App\Helpers\Helper::IDwiseData('buyers','id',$item->buyer_id))->name}}</td>
+                                                    <td class="text-left" style=" font-size: x-small !important;">{{(App\Helpers\Helper::IDwiseData('delivery_locations','id',$item->delivery_location_id))->name}}</td>
+                                                    <td class="text-center" style=" font-size: x-small !important;"> {{\Carbon\Carbon::parse($item->delivery_date)->format('d/m/Y')}}</td>
+                                                    <td class="text-center" style=" font-size: x-small !important;">
+                                                        @if($item->tna_start_date != null)
+                                                            {{ \Carbon\Carbon::parse($item->tna_start_date)->format('d/m/Y') }}
+                                                        @endif
+                                                    </td>
+                                                    <td class="text-center" style=" font-size: x-small !important;">
+                                                        @if($item->tna_end_date != null)
+                                                            {{ \Carbon\Carbon::parse($item->tna_end_date)->format('d/m/Y') }}
+                                                        @endif
+                                                    </td>
+                                                    <td class="text-center" style=" font-size: x-small !important;">
+                                                        @if($item->delivery_complete_date != null)
+                                                            {{ \Carbon\Carbon::parse($item->delivery_complete_date)->format('d/m/Y') }}
+                                                        @endif
+                                                    </td>
+                                                    <td class="text-center">
+                                                        @if($item->status == 'I')
+                                                            <span class="label label-info">Waiting for approval</span>
+                                                        @elseif($item->status == 'A')
+                                                            <span class="label label-success">Active</span>
+                                                        @elseif($item->status == 'B')
+                                                            <span class="label label-danger">Blocked</span>
+                                                        @elseif($item->status == 'IN')
+                                                            <span class="label label-warning">In-Active</span>
+                                                        @elseif($item->status == 'DC')
+                                                            <span class="label label-info">Delivery Complete</span>
+                                                        @endif
+                                                    </td>
+                                                        <td class="text-right">
+                                                            @if((App\Model\GumTapePODetail::getSumTotalPriceBDT($item->id) != 0))
+                                                                <strong style="float: left;">৳</strong>{!! number_format((App\Model\GumTapePODetail::getSumTotalPriceBDT($item->id)), 2, '.', ',') !!}
+                                                            @else
+                                                                N/A
                                                             @endif
                                                         </td>
-                                                        <td class="text-center">
-                                                            @if($item->tna_end_date != null)
-                                                                {{ \Carbon\Carbon::parse($item->tna_end_date)->format('d/m/Y') }}
+                                                        <td class="text-right">
+                                                            @if((App\Model\GumTapePODetail::getSumTotalPriceUSD($item->id) != 0))
+                                                                <strong style="float: left;">$</strong>{!! number_format((App\Model\GumTapePODetail::getSumTotalPriceUSD($item->id)), 2, '.', ',') !!}
+                                                            @else
+                                                                N/A
                                                             @endif
                                                         </td>
-                                                        <td class="text-center">
-                                                            @if($item->delivery_complete_date != null)
-                                                                {{ \Carbon\Carbon::parse($item->delivery_complete_date)->format('d/m/Y') }}
-                                                            @endif
-                                                        </td>
-                                                        <td class="text-center">
-                                                            @if($item->status == 'I')
-                                                                <span class="label label-info">Waiting for approval</span>
-                                                            @elseif($item->status == 'A')
-                                                                <span class="label label-success">Active</span>
-                                                            @elseif($item->status == 'B')
-                                                                <span class="label label-danger">Blocked</span>
-                                                            @elseif($item->status == 'IN')
-                                                                <span class="label label-warning">In-Active</span>
-                                                            @elseif($item->status == 'DC')
-                                                                <span class="label label-info">Delivery Complete</span>
-                                                            @endif
-                                                        </td>
-                                                        <td class="text-center">
+                                                    <td class="text-right">
 
-                                                        </td>
+                                                    </td>
                                                 @endforeach
                                                 </tbody>
                                             </table>
                                         </div>
                                     </div>
-                                    <!-- /tile body -->
+                                            <!-- /tile body -->
                                 </section>
-                                <!-- /tile -->
-                            </div>
-                        </div>
-                        <!-- row -->
-                        <div class="row">
-                            <!-- col -->
-                            <div class="col-md-12">
-                                <!-- tile -->
-                                <section class="tile tile-simple bg-tr-black lter">
-                                   {{-- <!-- tile body -->
-                                    <div class="tile-body p-0">
-                                        <div class="table-responsive">
-                                            <table class="table table-hover table-condensed">
-                                                <tfoot>
-                                                <tr>
-                                                    <td class="text-center" style="font-size: small !important;">
-                                                        <hr>
-                                                        <P><strong>ORDERED BY</strong></P>
-                                                    </td>
-                                                    <td class="text-center" style="font-size: small !important;">
-                                                        <hr>
-                                                        <P><strong>DEPT. HEAD APPROVAL</strong></P>
-                                                    </td>
-                                                    <td class="text-center" style="font-size: small !important;">
-                                                        <hr>
-                                                        <P><strong>MERCHANDISER APPROVAL</strong></P>
-                                                    </td>
-                                                    --}}{{--<td class="text-center" style="font-size: small !important;">
-                                                        <hr>
-                                                        <P><strong>Authorized Signature</strong></P>
-                                                    </td>--}}{{--
-                                                </tr>
-                                                </tfoot>
-                                            </table>
-                                        </div>
+<!-- /tile -->
+</div>
+</div>
+<!-- row -->
+<div class="row">
+<!-- col -->
+<div class="col-md-12">
+<!-- tile -->
+<section class="tile tile-simple bg-tr-black lter">
+{{-- <!-- tile body -->
+<div class="tile-body p-0">
+<div class="table-responsive">
+<table class="table table-hover table-condensed">
+<tfoot>
+<tr>
+<td class="text-center" style="font-size: small !important;">
+    <hr>
+    <P><strong>ORDERED BY</strong></P>
+</td>
+<td class="text-center" style="font-size: small !important;">
+    <hr>
+    <P><strong>DEPT. HEAD APPROVAL</strong></P>
+</td>
+<td class="text-center" style="font-size: small !important;">
+    <hr>
+    <P><strong>MERCHANDISER APPROVAL</strong></P>
+</td>
+--}}{{--<td class="text-center" style="font-size: small !important;">
+    <hr>
+    <P><strong>Authorized Signature</strong></P>
+</td>--}}{{--
+</tr>
+</tfoot>
+</table>
+</div>
 
-                                    </div>
-                                    <!-- /tile body -->--}}
-                                    <div class="tile-footer">
-                                        <p class="text-right" style="font-size: xx-small !important;">Report Generated From <strong>"Smart Cal"</strong>-Date:{{ \Carbon\Carbon::now()->format('d/m/Y') }}</p>
-                                    </div>
-                                </section>
-                                <!-- /tile -->
-                            </div>
-                            <!-- /col -->
-                        </div>
+</div>
+<!-- /tile body -->--}}
+<div class="tile-footer">
+<p class="text-right" style="font-size: xx-small !important;">Report Generated From <strong>"Smart Cal"</strong>-Date:{{ \Carbon\Carbon::now()->format('d/m/Y') }}</p>
+</div>
+</section>
+<!-- /tile -->
+</div>
+<!-- /col -->
+</div>
 
-                        <!-- /row -->
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- /row -->
+<!-- /row -->
+</div>
+</div>
+</div>
+</div>
+<!-- /row -->
 
-    </div>
+</div>
 @endsection
 
 
@@ -252,26 +268,26 @@ Gum Tape
 
 @endsection
 @section('pageScripts')
-    {{--    <script src="{{ asset('back-end/assets/MyJS/jquery.min.js') }}"></script>--}}
+{{--    <script src="{{ asset('back-end/assets/MyJS/jquery.min.js') }}"></script>--}}
 
-    <script>
-        $(window).load(function(){
+<script>
+$(window).load(function(){
 
-        });
+});
 
-        function refresh()
-        {
-            window.location.href = window.location.href.replace(/#.*$/, '');
-        }
+function refresh()
+{
+window.location.href = window.location.href.replace(/#.*$/, '');
+}
 
-        function iconChange() {
+function iconChange() {
 
-            $('#iconChange').find('i').addClass('fa-edit');
+$('#iconChange').find('i').addClass('fa-edit');
 
-        }
+}
 
 
-    </script>
+</script>
 @endsection()
 
 
